@@ -16,7 +16,6 @@ from environs import Env
 
 # load environment
 env = Env()
-env.read_env()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -86,7 +85,7 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": BASE_DIR / "db" / "db.sqlite3",
         "OPTIONS": {
             "init_command": (
                 "PRAGMA foreign_keys=ON;"

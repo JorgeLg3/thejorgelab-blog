@@ -3,8 +3,24 @@ services:
     build: .
     ports:
       - "8000:8000"
+    volumes:
+      - /db-data:/app/db
+      - /media:/app/media
     environment:
       DEBUG: ${DEBUG}
       SECRET_KEY: ${SECRET_KEY}
-    env_file:
-      - .env
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+  migrate:
+    build: .
+    command: python manage.py migrate --noinput
+    volumes:
+      - /db-data:/app/db
+      - /media:/app/media
+    environment:
+      DEBUG: ${DEBUG}
+      SECRET_KEY: ${SECRET_KEY}
+    # only run migrations when manually restarted
+    restart: "no"

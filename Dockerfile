@@ -23,10 +23,13 @@ COPY . /app
 # Activate the virtual environment copied from the build stage.
 ENV PATH="/app/.venv/bin:$PATH"
 
-RUN DEBUG=False ./manage.py collectstatic --noinput    
+# env variables not available until runtime
+RUN DEBUG=False SECRET_KEY=mytemporalkey ./manage.py collectstatic --noinput    
 
 ### 2 - DEPLOY STAGE ###
 FROM python:3.14-slim-trixie
+
+WORKDIR /app
 
 # Prevent Python from buffering stdout/stderr so logs appear immediately.
 ENV PYTHONUNBUFFERED=1
