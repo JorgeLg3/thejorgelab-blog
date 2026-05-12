@@ -1,0 +1,13 @@
+services:
+  django-app:
+    image: ghcr.io/jorgelg3/thejorgelab-blog:latest
+    restart: unless-stopped
+    ports:
+      - 8000:8000
+    volumes:
+      - /docker-apps/data/db:/app/db
+      - /docker-apps/data/media:/app/media
+    environment:
+      DEBUG: false
+      SECRET_KEY: ${SECRET_KEY}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS}

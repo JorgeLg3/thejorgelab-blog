@@ -43,5 +43,5 @@ COPY --from=builder /app /app
 
 EXPOSE 8000
 
-# Run Gunicorn as the production WSGI server.
-CMD ["gunicorn", "django_project.wsgi:application", "--bind", "0.0.0.0:8000"]
+# Run migrations and Gunicorn as the production WSGI server.
+CMD ["sh", "-c", "python manage.py migrate --noinput && gunicorn django_project.wsgi:application --bind 0.0.0.0:8000"]
