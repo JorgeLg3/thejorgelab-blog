@@ -11,7 +11,7 @@ env:
 
 jobs:
   validation:
-    uses: ./.github/workflows/validation.yml
+    uses: ./.github/workflows/ci_validation.yml
 
   build-and-push-image:
     needs: validation
