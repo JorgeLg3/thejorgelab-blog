@@ -5,8 +5,8 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - /docker-apps/data/db:/app/db
-      - /docker-apps/data/media:/app/media
+      - data/db:/app/db
+      - data/media:/app/media
     environment:
       DEBUG: false
       SECRET_KEY: ${SECRET_KEY}
