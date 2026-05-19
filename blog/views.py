@@ -1,5 +1,12 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from .models import Post
 
-def home_page_view(request):
-    return HttpResponse("Hello world!")
+
+class PostList(ListView):
+    model = Post
+    template_name = "blog/post_list.html"
+
+
+class PostDetail(DetailView):
+    model = Post
+    template_name = "blog/post_detail.html"
