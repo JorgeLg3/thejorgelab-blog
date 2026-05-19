@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     "accounts",
     "healthcheck",
     "pages",
-    "blogs",
+    "blog",
 ]
 
 MIDDLEWARE = [
