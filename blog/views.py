@@ -16,11 +16,15 @@ class PostList(ListView):
     template_name = "blog/post_list.html"
 
     def get_queryset(self):
+        queryset = Post.objects.order_by("-date")  # type: ignore
         tag_name = self.kwargs.get("tag_name")
         if tag_name:
-            return Post.objects.filter(tags__name=tag_name) # type: ignore
+            return queryset.filter(tags__name=tag_name)
         else:
-            return Post.objects.all() # type: ignore
+            return queryset.all()
+
+    class Meta:
+        ordering = ["date"]
 
 
 class PostDetail(DetailView):
