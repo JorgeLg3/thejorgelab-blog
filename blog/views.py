@@ -15,6 +15,13 @@ class PostList(ListView):
     model = Post
     template_name = "blog/post_list.html"
 
+    def get_queryset(self):
+        tag_name = self.kwargs.get("tag_name")
+        if tag_name:
+            return Post.objects.filter(tags__name=tag_name) # type: ignore
+        else:
+            return Post.objects.all() # type: ignore
+
 
 class PostDetail(DetailView):
     model = Post

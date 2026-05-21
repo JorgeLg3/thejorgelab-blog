@@ -7,4 +7,5 @@ urlpatterns = [
     path("<int:pk>/edit/", PostUpdate.as_view(), name="post_update"),
     path("<int:pk>/delete/", PostDelete.as_view(), name="post_delete"),
     path("", PostList.as_view(), name="post_list"),
+    path("tag/<str:tag_name>", PostList.as_view(), name="post_list_tag"),
 ]
