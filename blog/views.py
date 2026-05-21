@@ -1,7 +1,14 @@
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+)
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
-from .models import Post
+from .models import Post, Tag
+from .forms import PostForm
 
 
 class PostList(ListView):
@@ -17,23 +24,60 @@ class PostDetail(DetailView):
 class PostCreate(LoginRequiredMixin, CreateView):
     model = Post
     template_name = "blog/post_create.html"
-    fields = ["title", "body", "tags"]
+    form_class = PostForm
 
-    # automatically get author from login details
     def form_valid(self, form):
+        # automatically get author from login details
         form.instance.author = self.request.user
-        return super().form_valid(form)
-    
+        response = super().form_valid(form)
+
+        tag_list = form.cleaned_data["tag_list"]
+
+        for tag_name in tag_list.split():
+            tag_name = tag_name.lower().strip()
+
+            if tag_name:
+                tag, created = Tag.objects.get_or_create(name=tag_name)  # type: ignore
+                self.object.tags.add(tag)  # type: ignore
+
+        return response
+
 
 class PostUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     template_name = "blog/post_update.html"
-    fields = ["title", "body", "tags"]
+    form_class = PostForm
 
     # UserPassesTestMixin check: compares author with user
     def test_func(self):
         post = self.get_object()
         return post.author == self.request.user
+
+    # Include current tags in the tag list
+    def get_initial(self):
+        initial = super().get_initial()
+
+        initial["tag_list"] = " ".join(tag.name for tag in self.object.tags.all())
+
+        return initial
+
+    # update tags from tag list
+    def form_valid(self, form):
+        response = super().form_valid(form)
+
+        tag_list = form.cleaned_data["tag_list"]
+
+        # remove existing relations first
+        self.object.tags.clear()
+
+        for tag_name in tag_list.split():
+            tag_name = tag_name.lower().strip()
+
+            if tag_name:
+                tag, created = Tag.objects.get_or_create(name=tag_name)  # type: ignore
+                self.object.tags.add(tag)
+
+        return response
 
 
 class PostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):

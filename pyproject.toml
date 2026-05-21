@@ -16,3 +16,6 @@ dev = [
     "ruff>=0.15.12",
     "ty>=0.0.35",
 ]
+
+[tool.ruff]
+extend-exclude = ["**/migrations"]
