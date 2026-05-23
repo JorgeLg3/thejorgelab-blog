@@ -25,4 +25,32 @@ uv run manage.py test
 ```
 
 ## Deployment
-The `release.yml` workflow will build and push the docker image to Github container registry. From where you can later consume it. There is an example of docker compose to consume the released image in the `compose-production.yaml`
+The `release.yml` workflow will build and push the docker image to Github container registry. From where you can later consume it. You can then create a production compose file with something like this:
+
+```yaml
+services:
+  django-app:
+    image: ghcr.io/jorgelg3/thejorgelab-blog:latest
+    restart: unless-stopped
+    volumes:
+      - ./data/db-data:/app/db-data
+      - ./data/media:/app/media
+    environment:
+      DEBUG: false
+      SECRET_KEY: ${SECRET_KEY}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS}
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8001:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./data/media:/app/media
+    depends_on:
+      - django-app
+```
+
+You will then need to copy the [NGINX config file](nginx.conf) into the root folder from where you are serving the docker compose file.
+
+And finally create a .env file to serve the env variables from there
