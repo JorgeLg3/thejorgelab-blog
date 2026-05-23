@@ -23,9 +23,6 @@ class PostList(ListView):
         else:
             return queryset.all()
 
-    class Meta:
-        ordering = ["date"]
-
 
 class PostDetail(DetailView):
     model = Post
@@ -42,6 +39,7 @@ class PostCreate(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         response = super().form_valid(form)
 
+        # Process list of tags
         tag_list = form.cleaned_data["tag_list"]
 
         for tag_name in tag_list.split():
@@ -52,6 +50,25 @@ class PostCreate(LoginRequiredMixin, CreateView):
                 self.object.tags.add(tag)  # type: ignore
 
         return response
+    
+    # On preview load the body content into the preview variable
+    def post(self, request, *args, **kwargs):
+        self.object = None
+
+        form = self.get_form()
+
+        if form.is_valid():
+            if "preview" in request.POST:
+                return self.render_to_response(
+                    self.get_context_data(
+                        form=form,
+                        preview=form.cleaned_data["body"],
+                    )
+                )
+
+            return self.form_valid(form)
+
+        return self.form_invalid(form)
 
 
 class PostUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
