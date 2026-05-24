@@ -1,6 +1,7 @@
 # The JorgeLab blog
 ## Introduction
 This is the codebase of my personal blog using Django framework.
+
 - Using UV for project and dependencies management
 - The app uses Docker to contain all the code and dependencies
 - Github workflows included the build the image and upload it to GH container registry
@@ -39,9 +40,11 @@ services:
       DEBUG: false
       SECRET_KEY: ${SECRET_KEY}
       ALLOWED_HOSTS: ${ALLOWED_HOSTS}
+      CSRF_TRUSTED_ORIGINS: ${CSRF_TRUSTED_ORIGINS:}
 
   nginx:
     image: nginx:latest
+    restart: unless-stopped
     ports:
       - "8001:80"
     volumes:
