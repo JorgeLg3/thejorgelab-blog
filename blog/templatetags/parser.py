@@ -7,10 +7,17 @@ from django.utils.safestring import mark_safe
 register = template.Library()
 
 ALLOWED_TAGS = {
-    "p", "br",
-    "h2", "h3",
-    "strong", "em", "code", "pre",
-    "ul", "ol", "li",
+    "p",
+    "br",
+    "h2",
+    "h3",
+    "strong",
+    "em",
+    "code",
+    "pre",
+    "ul",
+    "ol",
+    "li",
     "blockquote",
     "a",
 }

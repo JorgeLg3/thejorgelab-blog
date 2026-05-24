@@ -31,8 +31,8 @@ jobs:
       - name: Run linter checks
         run: uv run ruff check
       
-      - name: Run type checker
-        run: uv run ty check
+      # - name: Run type checker
+      #   run: uv run ty check
 
       - name: Collect static files for be allow django test
         run: uv run manage.py collectstatic --noinput

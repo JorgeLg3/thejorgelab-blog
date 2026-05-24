@@ -50,7 +50,7 @@ class PostCreate(LoginRequiredMixin, CreateView):
                 self.object.tags.add(tag)  # type: ignore
 
         return response
-    
+
     # On preview load the body content into the preview variable
     def post(self, request, *args, **kwargs):
         self.object = None
