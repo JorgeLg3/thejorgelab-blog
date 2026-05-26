@@ -411,29 +411,12 @@ main {
   max-width: 1120px;
 }
 
-/* Post cards */
-.post-card {
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-
-.post-card:hover {
-  border-color: #D4D4D8;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-}
-
+/* Post feed (borderless — content sits directly on the background) */
 .post-card-image {
   display: block;
   overflow: hidden;
-  margin-inline: 1.75rem;
-  border-radius: 4px;
-}
-
-.post-card-hero .post-card-image {
-  margin-inline: 2.25rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
 }
 
 .post-card-image img {
@@ -465,19 +448,19 @@ main {
 }
 
 .post-card-header {
-  padding: 1.75rem 1.75rem 1rem;
+  margin-bottom: 1rem;
 }
 
 .post-card-hero .post-card-header {
-  padding: 2.25rem 2.25rem 1.25rem;
+  margin-bottom: 1.25rem;
 }
 
 .post-card-body {
-  padding: 1rem 1.75rem 1.5rem;
+  margin-top: 1rem;
 }
 
 .post-card-hero .post-card-body {
-  padding: 1.25rem 2.25rem 1.75rem;
+  margin-top: 1.25rem;
 }
 
 .post-card-title {
@@ -540,8 +523,8 @@ main {
 .post-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
-  margin-top: 1.25rem;
+  gap: 2.75rem 2rem;
+  margin-top: 2.75rem;
 }
 
 .post-list-empty {
