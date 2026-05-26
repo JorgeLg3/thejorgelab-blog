@@ -394,6 +394,12 @@ main {
   align-items: start;
 }
 
+/* Wide pages: align header/footer to the wider content width */
+.page-wide .site-header .container,
+.page-wide .site-footer .container {
+  max-width: 1120px;
+}
+
 /* Post cards */
 .post-card {
   background: #fff;
