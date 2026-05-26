@@ -32,6 +32,7 @@ class Post(models.Model):
         on_delete=models.CASCADE,
     )
     tags = models.ManyToManyField(Tag, blank=True, related_name="posts")
+    featured = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

@@ -30,7 +30,9 @@ class PostList(ListView):
             .filter(post_count__gt=0)
             .order_by("-post_count")[:10]
         )
-        context["recent_posts"] = Post.objects.order_by("-date")[:3]  # type: ignore
+        context["featured_posts"] = (
+            Post.objects.filter(featured=True).order_by("-date")  # type: ignore
+        )
         context["current_tag"] = self.kwargs.get("tag_name")
         return context
 

@@ -92,11 +92,11 @@
     </div>
 
     {# Featured widget #}
-    {% if recent_posts %}
+    {% if featured_posts %}
       <div class="sidebar-card">
         <p class="sidebar-card-title">Featured</p>
         <ul class="sidebar-post-list">
-          {% for post in recent_posts %}
+          {% for post in featured_posts %}
             <li class="sidebar-post-item">
               <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
               <time datetime="{{ post.date|date:'Y-m-d' }}">{{ post.date|date:"N j, Y" }}</time>
