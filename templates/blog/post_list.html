@@ -1,12 +1,123 @@
 {% extends "base.html" %}
+{% load parser %}
 
-{% block content %}
-  <ul>
-    {% for post in post_list %}
-      <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
-    {% endfor %}
-  </ul>
-  {% if user.is_authenticated %}
-    <a href="{% url 'post_create' %}">Create post</a>
-  {% endif %}
+{% block title %}Posts — thejorgelab{% endblock %}
+
+{% block main_container %}
+<div class="sidebar-layout">
+
+  <section class="post-main">
+    {% if current_tag %}
+      <p class="tag-filter-label">Posts tagged <strong>#{{ current_tag }}</strong></p>
+    {% endif %}
+
+    {% if post_list %}
+      {# Hero: first post #}
+      {% with post=post_list.0 %}
+        <article class="post-card post-card-hero">
+          <div class="post-card-header">
+            <h2 class="post-card-title">
+              <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+            </h2>
+            <div class="post-card-meta">
+              <span>{{ post.author }}</span>
+              <span class="post-meta-sep">&middot;</span>
+              <time datetime="{{ post.date|date:'Y-m-d' }}">{{ post.date|date:"N j, Y" }}</time>
+            </div>
+          </div>
+          <a href="{{ post.get_absolute_url }}" class="post-card-image" tabindex="-1" aria-hidden="true">
+            {% if post.image %}
+              <img src="{{ post.image.url }}" alt="{{ post.title }}">
+            {% else %}
+              <div class="post-card-placeholder"></div>
+            {% endif %}
+          </a>
+          <div class="post-card-body">
+            <p class="post-card-excerpt">{{ post.body|strip_markdown|truncatewords:45 }}</p>
+            <a href="{{ post.get_absolute_url }}" class="post-card-readmore">Continue reading &rarr;</a>
+          </div>
+        </article>
+      {% endwith %}
+
+      {# Grid: remaining posts #}
+      {% if post_list|length > 1 %}
+        <div class="post-grid">
+          {% for post in post_list|slice:"1:" %}
+            <article class="post-card">
+              <div class="post-card-header">
+                <h2 class="post-card-title">
+                  <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                </h2>
+                <div class="post-card-meta">
+                  <span>{{ post.author }}</span>
+                  <span class="post-meta-sep">&middot;</span>
+                  <time datetime="{{ post.date|date:'Y-m-d' }}">{{ post.date|date:"N j, Y" }}</time>
+                </div>
+              </div>
+              <a href="{{ post.get_absolute_url }}" class="post-card-image" tabindex="-1" aria-hidden="true">
+                {% if post.image %}
+                  <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                {% else %}
+                  <div class="post-card-placeholder"></div>
+                {% endif %}
+              </a>
+              <div class="post-card-body">
+                <p class="post-card-excerpt">{{ post.body|strip_markdown|truncatewords:22 }}</p>
+                <a href="{{ post.get_absolute_url }}" class="post-card-readmore">Continue reading &rarr;</a>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+    {% else %}
+      <p class="post-list-empty">No posts yet.</p>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+      <div class="post-list-actions">
+        <a href="{% url 'post_create' %}" class="btn btn-secondary">New post</a>
+      </div>
+    {% endif %}
+  </section>
+
+  <aside class="post-sidebar">
+    {# About widget #}
+    <div class="sidebar-card">
+      <p class="sidebar-card-title">About</p>
+      <div class="about-avatar"></div>
+      <p class="about-name">Jorge</p>
+      <p class="about-bio">Software developer writing about tech, coding, and the tools I use and build.</p>
+      <a href="{% url 'about' %}" class="btn btn-secondary btn-sm">Read more &rarr;</a>
+    </div>
+
+    {# Featured widget #}
+    {% if recent_posts %}
+      <div class="sidebar-card">
+        <p class="sidebar-card-title">Featured</p>
+        <ul class="sidebar-post-list">
+          {% for post in recent_posts %}
+            <li class="sidebar-post-item">
+              <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+              <time datetime="{{ post.date|date:'Y-m-d' }}">{{ post.date|date:"N j, Y" }}</time>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    {# Tags widget #}
+    {% if popular_tags %}
+      <div class="sidebar-card">
+        <p class="sidebar-card-title">Tags</p>
+        <div class="sidebar-tags">
+          {% for tag in popular_tags %}
+            <a href="{% url 'post_list_tag' tag.name %}" class="tag{% if tag.name == current_tag %} tag-active{% endif %}">{{ tag.name }}</a>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </aside>
+
+</div>
 {% endblock %}

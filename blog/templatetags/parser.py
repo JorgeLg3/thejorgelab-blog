@@ -28,6 +28,12 @@ ALLOWED_ATTRIBUTES = {
 
 
 @register.filter
+def strip_markdown(value):
+    html = markdown.markdown(value, extensions=["extra", "fenced_code"])
+    return bleach.clean(html, tags=set(), strip=True)
+
+
+@register.filter
 def markdownify(value):
     html = markdown.markdown(
         value,

@@ -1,3 +1,4 @@
+from django.db.models import Count
 from django.views.generic import (
     ListView,
     DetailView,
@@ -20,8 +21,18 @@ class PostList(ListView):
         tag_name = self.kwargs.get("tag_name")
         if tag_name:
             return queryset.filter(tags__name=tag_name)
-        else:
-            return queryset.all()
+        return queryset.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["popular_tags"] = (
+            Tag.objects.annotate(post_count=Count("posts"))  # type: ignore
+            .filter(post_count__gt=0)
+            .order_by("-post_count")[:10]
+        )
+        context["recent_posts"] = Post.objects.order_by("-date")[:3]  # type: ignore
+        context["current_tag"] = self.kwargs.get("tag_name")
+        return context
 
 
 class PostDetail(DetailView):

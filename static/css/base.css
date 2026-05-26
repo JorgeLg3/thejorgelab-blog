@@ -377,3 +377,269 @@ main {
   background-color: #FEF2F2;
   border-color: #FCA5A5;
 }
+
+.btn-sm {
+  font-size: 0.8125rem;
+  padding: 0.35em 0.875em;
+}
+
+/* Sidebar page layout (post list) */
+.sidebar-layout {
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 272px;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+/* Post cards */
+.post-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.post-card:hover {
+  border-color: #D4D4D8;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.post-card-image {
+  display: block;
+  overflow: hidden;
+  margin-inline: 1.75rem;
+  border-radius: 4px;
+}
+
+.post-card-hero .post-card-image {
+  margin-inline: 2.25rem;
+}
+
+.post-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.post-card:hover .post-card-image img {
+  transform: scale(1.02);
+}
+
+.post-card-placeholder {
+  width: 100%;
+  background: linear-gradient(135deg, var(--surface) 0%, var(--border) 100%);
+}
+
+/* Hero image ratio */
+.post-card-hero .post-card-image,
+.post-card-hero .post-card-placeholder {
+  aspect-ratio: 16 / 9;
+}
+
+/* Grid card image ratio */
+.post-grid .post-card-image,
+.post-grid .post-card-placeholder {
+  aspect-ratio: 3 / 2;
+}
+
+.post-card-header {
+  padding: 1.75rem 1.75rem 1rem;
+}
+
+.post-card-hero .post-card-header {
+  padding: 2.25rem 2.25rem 1.25rem;
+}
+
+.post-card-body {
+  padding: 1rem 1.75rem 1.5rem;
+}
+
+.post-card-hero .post-card-body {
+  padding: 1.25rem 2.25rem 1.75rem;
+}
+
+.post-card-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
+}
+
+.post-card-hero .post-card-title {
+  font-size: 1.5rem;
+}
+
+.post-grid .post-card-title {
+  font-size: 1.05rem;
+}
+
+.post-card-title a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.post-card-title a:hover {
+  color: var(--accent);
+}
+
+.post-card-meta {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.post-card-excerpt {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: #3F3F46;
+  margin-bottom: 1rem;
+}
+
+.post-grid .post-card-excerpt {
+  font-size: 0.875rem;
+}
+
+.post-card-readmore {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.post-card-readmore:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* 2-column grid for posts 2+ */
+.post-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.post-list-empty {
+  color: var(--text-muted);
+  font-size: 0.9375rem;
+}
+
+.post-list-actions {
+  margin-top: 2rem;
+}
+
+/* Tag filter label */
+.tag-filter-label {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.tag-filter-label strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* Sidebar widgets */
+.post-sidebar {
+  position: sticky;
+  top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.sidebar-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+
+.sidebar-card-title {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* About widget */
+.about-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent) 0%, #818CF8 100%);
+  margin-bottom: 0.875rem;
+}
+
+.about-name {
+  font-family: var(--font-heading);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.5rem;
+}
+
+.about-bio {
+  font-size: 0.8375rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+/* Featured / recent posts widget */
+.sidebar-post-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.sidebar-post-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.sidebar-post-item a {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+  line-height: 1.35;
+}
+
+.sidebar-post-item a:hover {
+  color: var(--accent);
+}
+
+.sidebar-post-item time {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Tags widget */
+.sidebar-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag-active {
+  background-color: #EEF2FF;
+  border-color: #C7D2FE;
+  color: #3730A3;
+}
