@@ -643,3 +643,38 @@ main {
   border-color: #C7D2FE;
   color: #3730A3;
 }
+
+/* Responsive */
+
+/* Tablet & below: drop the sidebar beneath the posts */
+@media (max-width: 860px) {
+  .sidebar-layout {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .post-sidebar {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .sidebar-card {
+    flex: 1 1 220px;
+  }
+}
+
+/* Phones: single column everywhere */
+@media (max-width: 560px) {
+  .post-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .post-sidebar {
+    flex-direction: column;
+  }
+
+  .sidebar-card {
+    flex: 1 1 auto;
+  }
+}
