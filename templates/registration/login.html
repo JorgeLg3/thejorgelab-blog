@@ -1,8 +1,22 @@
-{% block title %}Log In{% endblock title %}
+{% extends "base.html" %}
+
+{% block title %}Log in — thejorgelab{% endblock %}
+
 {% block content %}
-<h2>Log	In</h2>
-<form method="post">{% csrf_token %}
-  {{ form }}
-  <button type="submit">Log In</button>
-</form>
-{% endblock content	%}
+  <div class="auth-card">
+    <h1 class="auth-title">Log in</h1>
+
+    {% if form.non_field_errors %}
+      <div class="auth-error">
+        {% for error in form.non_field_errors %}{{ error }}{% endfor %}
+      </div>
+    {% endif %}
+
+    <form method="post" class="auth-form">
+      {% csrf_token %}
+      {{ form.as_div }}
+      <input type="hidden" name="next" value="{{ next }}">
+      <button type="submit" class="btn btn-primary">Log in</button>
+    </form>
+  </div>
+{% endblock %}
