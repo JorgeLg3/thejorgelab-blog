@@ -31,9 +31,7 @@ class PostList(ListView):
             .filter(post_count__gt=0)
             .order_by("-post_count")[:10]
         )
-        context["featured_posts"] = (
-            Post.objects.filter(featured=True).order_by("-date")  # type: ignore
-        )
+        context["featured_posts"] = Post.objects.filter(featured=True).order_by("-date")  # type: ignore
         context["current_tag"] = self.kwargs.get("tag_name")
         context["about"] = AboutPage.get()
         return context
@@ -76,9 +74,7 @@ class PostCreate(LoginRequiredMixin, CreateView):
             if "preview" in request.POST:
                 tag_list = form.cleaned_data["tag_list"]
                 preview_tags = [
-                    name.lower().strip()
-                    for name in tag_list.split()
-                    if name.strip()
+                    name.lower().strip() for name in tag_list.split() if name.strip()
                 ]
                 return self.render_to_response(
                     self.get_context_data(
@@ -139,9 +135,7 @@ class PostUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             if "preview" in request.POST:
                 tag_list = form.cleaned_data["tag_list"]
                 preview_tags = [
-                    name.lower().strip()
-                    for name in tag_list.split()
-                    if name.strip()
+                    name.lower().strip() for name in tag_list.split() if name.strip()
                 ]
                 return self.render_to_response(
                     self.get_context_data(
