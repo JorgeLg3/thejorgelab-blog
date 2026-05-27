@@ -1,5 +1,9 @@
 {% extends "base.html" %}
+{% load parser %}
 
 {% block content %}
-  <h1>Hello I'm Jorge!</h1>
+  <div class="about-avatar-lg">
+    {% if about.photo %}<img src="{{ about.photo.url }}" alt="Jorge">{% endif %}
+  </div>
+  {{ about.bio|markdownify }}
 {% endblock %}

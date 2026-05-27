@@ -86,9 +86,11 @@
     {# About widget #}
     <div class="sidebar-card">
       <p class="sidebar-card-title">About</p>
-      <div class="about-avatar"></div>
+      <div class="about-avatar">
+        {% if about.photo %}<img src="{{ about.photo.url }}" alt="Jorge">{% endif %}
+      </div>
       <p class="about-name">Jorge</p>
-      <p class="about-bio">Software developer writing about tech, coding, and the tools I use and build.</p>
+      <p class="about-bio">{{ about.bio|strip_markdown|truncatewords:20 }}</p>
       <a href="{% url 'about' %}" class="btn btn-secondary btn-sm">Read more &rarr;</a>
     </div>
 

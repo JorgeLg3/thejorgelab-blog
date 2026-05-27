@@ -10,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from .models import Post, Tag
 from .forms import PostForm
+from pages.models import AboutPage
 
 
 class PostList(ListView):
@@ -34,6 +35,7 @@ class PostList(ListView):
             Post.objects.filter(featured=True).order_by("-date")  # type: ignore
         )
         context["current_tag"] = self.kwargs.get("tag_name")
+        context["about"] = AboutPage.get()
         return context
 
 
