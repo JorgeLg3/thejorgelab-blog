@@ -1,11 +1,85 @@
 {% extends "base.html" %}
+{% load parser %}
+
+{% block title %}Edit post — thejorgelab{% endblock %}
 
 {% block content %}
-<h1>Edit post</h1>
-<form action="" method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-  {{ form }}
-  <input type="submit" value="Update">
-  <a href="{% url 'post_detail' post.pk %}">Cancel</a>
-</form>
-{% endblock content %}
+  <form method="post" enctype="multipart/form-data" class="post-editor">
+    {% csrf_token %}
+    <input type="checkbox" id="preview-toggle" class="preview-toggle" {% if preview %}checked{% endif %} hidden>
+
+    {# ---- Editor ---- #}
+    <div class="editor-pane">
+      <h1 class="editor-heading">Edit post</h1>
+
+      {{ form.non_field_errors }}
+
+      <div class="field">
+        <label for="{{ form.title.id_for_label }}">Title</label>
+        {{ form.title }}
+        {{ form.title.errors }}
+      </div>
+
+      <div class="field">
+        <label for="{{ form.body.id_for_label }}">Body <span class="field-hint">Markdown</span></label>
+        {{ form.body }}
+        {{ form.body.errors }}
+      </div>
+
+      <div class="field">
+        <label for="{{ form.image.id_for_label }}">Image</label>
+        {{ form.image }}
+        {{ form.image.errors }}
+      </div>
+
+      <div class="field">
+        <label for="{{ form.tag_list.id_for_label }}">Tags</label>
+        {{ form.tag_list }}
+        <p class="field-help">{{ form.tag_list.help_text }}</p>
+        {{ form.tag_list.errors }}
+      </div>
+
+      <div class="field field-inline">
+        {{ form.featured }}
+        <label for="{{ form.featured.id_for_label }}">Feature this post</label>
+      </div>
+    </div>
+
+    {# ---- Preview ---- #}
+    <div class="preview-pane">
+      <article>
+        <header class="post-header">
+          <h1 class="post-title">{{ form.title.value }}</h1>
+          <div class="post-meta">
+            <span>{{ post.author }}</span>
+            <span class="post-meta-sep">&middot;</span>
+            <time datetime="{{ post.date|date:'Y-m-d' }}">{{ post.date|date:"N j, Y" }}</time>
+            {% if preview_tags %}
+              <span class="post-meta-sep">&middot;</span>
+              <div class="post-tags">
+                {% for tag in preview_tags %}
+                  <span class="tag">{{ tag }}</span>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+        </header>
+        <div class="prose">
+          {{ preview|markdownify }}
+        </div>
+      </article>
+    </div>
+
+    {# ---- Actions ---- #}
+    <div class="editor-actions">
+      <button type="submit" name="preview" class="btn btn-secondary">Preview</button>
+      <button type="submit" class="btn btn-primary">Save changes</button>
+      <a href="{% url 'post_detail' post.pk %}" class="btn btn-ghost">Cancel</a>
+    </div>
+
+    <div class="preview-actions">
+      <label for="preview-toggle" class="btn btn-secondary">Edit</label>
+      <button type="submit" class="btn btn-primary">Save changes</button>
+    </div>
+  </form>
+{% endblock %}

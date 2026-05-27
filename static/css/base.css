@@ -731,6 +731,181 @@ main {
   margin-bottom: 1.25rem;
 }
 
+/* Post editor */
+.editor-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+}
+
+.post-editor .field {
+  margin-bottom: 1.25rem;
+}
+
+.post-editor label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.375rem;
+}
+
+.field-hint {
+  font-weight: 400;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-left: 0.4rem;
+}
+
+.field-help {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.3rem;
+}
+
+.post-editor input[type="text"],
+.post-editor textarea {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  color: var(--text);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.post-editor textarea {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  min-height: 360px;
+  resize: vertical;
+}
+
+.post-editor input[type="text"]:focus,
+.post-editor textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.post-editor input[type="file"] {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.field-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.field-inline label {
+  margin-bottom: 0;
+}
+
+.post-editor .errorlist {
+  list-style: none;
+  font-size: 0.8125rem;
+  color: #DC2626;
+  margin-top: 0.375rem;
+}
+
+/* Editor */
+.preview-pane {
+  display: none;
+}
+
+.editor-actions,
+.preview-actions {
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.editor-actions {
+  display: flex;
+}
+
+.preview-actions {
+  display: none;
+}
+
+.preview-toggle:checked ~ .editor-pane,
+.preview-toggle:checked ~ .editor-actions {
+  display: none;
+}
+
+.preview-toggle:checked ~ .preview-pane {
+  display: block;
+}
+
+.preview-toggle:checked ~ .preview-actions {
+  display: flex;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border-color: transparent;
+}
+
+.btn-ghost:hover {
+  color: var(--text);
+  background: var(--surface);
+}
+
+/* Confirm dialog (delete) */
+.confirm-card {
+  max-width: 460px;
+  margin-inline: auto;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+}
+
+.confirm-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+.confirm-text {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.confirm-text strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn-danger-fill {
+  background-color: #DC2626;
+  color: #fff;
+  border-color: #DC2626;
+}
+
+.btn-danger-fill:hover {
+  background-color: #B91C1C;
+  border-color: #B91C1C;
+}
+
 /* Responsive */
 
 /* Tablet & below: drop the sidebar beneath the posts */

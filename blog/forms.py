@@ -11,4 +11,12 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ["title", "body", "image", "tag_list", "featured"]
-        # widgets = {"tags": forms.widgets.CheckboxSelectMultiple()}
+        widgets = {
+            "title": forms.TextInput(attrs={"placeholder": "Post title"}),
+            "body": forms.Textarea(
+                attrs={
+                    "rows": 18,
+                    "placeholder": "Write your post in Markdown…",
+                }
+            ),
+        }

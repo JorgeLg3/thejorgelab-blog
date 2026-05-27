@@ -64,7 +64,7 @@ class PostCreate(LoginRequiredMixin, CreateView):
 
         return response
 
-    # On preview load the body content into the preview variable
+    # On preview, render the submitted markdown into the preview pane
     def post(self, request, *args, **kwargs):
         self.object = None
 
@@ -72,10 +72,17 @@ class PostCreate(LoginRequiredMixin, CreateView):
 
         if form.is_valid():
             if "preview" in request.POST:
+                tag_list = form.cleaned_data["tag_list"]
+                preview_tags = [
+                    name.lower().strip()
+                    for name in tag_list.split()
+                    if name.strip()
+                ]
                 return self.render_to_response(
                     self.get_context_data(
                         form=form,
                         preview=form.cleaned_data["body"],
+                        preview_tags=preview_tags,
                     )
                 )
 
@@ -119,6 +126,32 @@ class PostUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
                 self.object.tags.add(tag)
 
         return response
+
+    # On preview, render the submitted markdown into the preview pane
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        form = self.get_form()
+
+        if form.is_valid():
+            if "preview" in request.POST:
+                tag_list = form.cleaned_data["tag_list"]
+                preview_tags = [
+                    name.lower().strip()
+                    for name in tag_list.split()
+                    if name.strip()
+                ]
+                return self.render_to_response(
+                    self.get_context_data(
+                        form=form,
+                        preview=form.cleaned_data["body"],
+                        preview_tags=preview_tags,
+                    )
+                )
+
+            return self.form_valid(form)
+
+        return self.form_invalid(form)
 
 
 class PostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
