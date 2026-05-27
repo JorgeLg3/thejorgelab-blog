@@ -1,11 +1,17 @@
 {% extends "base.html" %}
 
+{% block title %}Delete post — thejorgelab{% endblock %}
+
 {% block content %}
-<h1>Delete post</h1>
-<form action="" method="post">
-  {% csrf_token %}
-  <p>Are you sure you want to delete "{{ post.title }}"?</p>
-  <input type="submit" value="Confirm">
-  <a href="{% url 'post_detail' post.pk %}">Cancel</a>
-</form>
-{% endblock content %}
+  <div class="confirm-card">
+    <h1 class="confirm-title">Delete post</h1>
+    <p class="confirm-text">
+      Are you sure you want to delete <strong>“{{ post.title }}”</strong>? This action can’t be undone.
+    </p>
+    <form method="post" class="confirm-actions">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger-fill">Delete post</button>
+      <a href="{% url 'post_detail' post.pk %}" class="btn btn-ghost">Cancel</a>
+    </form>
+  </div>
+{% endblock %}
