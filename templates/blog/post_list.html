@@ -21,7 +21,7 @@
               <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
             </h2>
             <div class="post-card-meta">
-              <span>{{ post.author }}</span>
+              <span>{{ post.author|title }}</span>
               <span class="post-meta-sep">&middot;</span>
               <time datetime="{{ post.date|date:'Y-m-d' }}">{{ post.date|date:"N j, Y" }}</time>
             </div>
