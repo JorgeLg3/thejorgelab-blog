@@ -1,0 +1,2 @@
+# this file exists just to make git tracks the db-data folder
+# this way Django can create the sqlite db on first run
