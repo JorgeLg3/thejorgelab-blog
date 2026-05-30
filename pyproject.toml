@@ -1,7 +1,7 @@
 [project]
 name = "thejorgelab-blog"
 version = "0.1.0"
-description = "Add your description here"
+description = "The JorgeLab personal blog — a minimalist Django blog with Markdown posts, tags and Docker deployment"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
